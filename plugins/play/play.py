@@ -94,11 +94,11 @@ async def play_commnd(
     )
     if audio_telegram:
         if audio_telegram.file_size > config.TG_AUDIO_FILESIZE_LIMIT:
-            return await mystic.edit_text(_["play_5"])
+            return await mystic.edit_text(_["⚡"])
         duration_min = seconds_to_min(audio_telegram.duration)
         if (audio_telegram.duration) > config.DURATION_LIMIT:
             return await mystic.edit_text(
-                _["play_6"].format(
+                _["⚡"].format(
                     config.DURATION_LIMIT_MIN, duration_min
                 )
             )
@@ -140,7 +140,7 @@ async def play_commnd(
         return
     elif video_telegram:
         if not await is_video_allowed(message.chat.id):
-            return await mystic.edit_text(_["play_3"])
+            return await mystic.edit_text(_["⚡"])
         if message.reply_to_message.document:
             try:
                 ext = video_telegram.file_name.split(".")[-1]
@@ -150,10 +150,10 @@ async def play_commnd(
                     )
             except:
                 return await mystic.edit_text(
-                    _["play_8"].format(f"{' | '.join(formats)}")
+                    _["⚡"].format(f"{' | '.join(formats)}")
                 )
         if video_telegram.file_size > config.TG_VIDEO_FILESIZE_LIMIT:
-            return await mystic.edit_text(_["play_9"])
+            return await mystic.edit_text(_["⚡"])
         file_path = await Telegram.get_filepath(video=video_telegram)
         if await Telegram.download(_, message, mystic, file_path):
             message_link = await Telegram.get_link(message)
@@ -199,7 +199,7 @@ async def play_commnd(
                     )
                 except Exception as e:
                     print(e)
-                    return await mystic.edit_text(_["play_3"])
+                    return await mystic.edit_text(_["⚡"])
                 streamtype = "playlist"
                 plist_type = "yt"
                 if "&" in url:
@@ -213,7 +213,7 @@ async def play_commnd(
                     details, track_id = await YouTube.track(url)
                 except Exception as e:
                     print(e)
-                    return await mystic.edit_text(_["play_3"])
+                    return await mystic.edit_text(_["⚡"])
                 streamtype = "youtube"
                 img = details["thumb"]
                 cap = _["play_11"].format(
